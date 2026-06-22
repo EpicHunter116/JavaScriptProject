@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal portfolio with About, Projects, and Contact sections.">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <p class="welcome-message" id="welcomeMessage">Welcome to my portfolio!</p>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>About</h2>
+            <p>Hi there! I am a software student who enjoys playing videogames, hiking, and reading.</p>
+            <p>This page is a small introduction to who I am and what I can create.</p>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <p>Below are three GitHub projects that showcase my work.</p>
+            <div class="project-grid">
+                <div class="project-card">
+                    <a href="https://github.com/EpicHunter116/Python-AI-game">Project
+                        1: Python AI Game</a>
+                </div>
+                <div class="project-card">
+                    <a href="https://github.com/EpicHunter116/PHPCourseProj">Project
+                        2: PHP Project</a>
+                </div>
+                <div class="project-card">
+                    <a href="https://github.com/EpicHunter116/Calculator">Project
+                        3: Calculator App</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>If you'd like to reach out, fill in the form below and send me a message.</p>
+            <form>
+                <div>
+                    <label for="senderName">Name</label>
+                    <input type="text" id="senderName" name="senderName" placeholder="Your name">
+                </div>
+                <div>
+                    <label for="senderEmail">Email Address</label>
+                    <input type="email" id="senderEmail" name="senderEmail" placeholder="your@email.com">
+                </div>
+                <div>
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" placeholder="Subject">
+                </div>
+                <div>
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Write your message here..."></textarea>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        const userName = prompt('What is your name?', 'Friend');
+        const welcomeElement = document.getElementById('welcomeMessage');
+        if (userName && userName.trim().length > 0) {
+            welcomeElement.textContent = `Welcome, ${userName.trim()}! Glad you are here.`;
+        } else {
+            welcomeElement.textContent = 'Welcome to my portfolio!';
+        }
+    </script>
+</body>
+
+</html>
