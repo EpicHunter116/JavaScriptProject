@@ -11,7 +11,13 @@
 
 <body>
     <header>
-        <p class="welcome-message" id="welcomeMessage">Welcome to my portfolio!</p>
+        <div class="top-bar">
+            <p class="welcome-message" id="welcomeMessage">Welcome to my portfolio!</p>
+            <label class="toggle-label">
+                <input type="checkbox" id="darkModeToggle">
+                <span>Dark Mode</span>
+            </label>
+        </div>
         <nav>
             <a href="#about">About</a>
             <a href="#projects">Projects</a>
@@ -24,6 +30,38 @@
             <h2>About</h2>
             <p>Hi there! I am a software student who enjoys playing videogames, hiking, and reading.</p>
             <p>This page is a small introduction to who I am and what I can create.</p>
+            <div class="skills-block">
+                <h3>Skills & Technologies</h3>
+                <ul id="skillsList"></ul>
+            </div>
+        </section>
+
+        <section id="featured-content">
+            <h2>Featured Content</h2>
+            <div class="featured-grid">
+                <div class="feature-card" id="universityResources">
+                    <h3>University Resources</h3>
+                    <p>Useful ECPI program links:</p>
+                    <ul>
+                        <li><a href="https://www.ecpi.edu/" target="_blank" rel="noopener">ECPI University Home</a></li>
+                        <li><a href="https://www.ecpi.edu/programs" target="_blank" rel="noopener">ECPI Programs</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="feature-card" id="personalProjects">
+                    <h3>Personal Projects</h3>
+                    <div class="project-images">
+                        <a href="https://github.com/EpicHunter116/Python-AI-game" target="_blank" rel="noopener">
+                            <img src="placeholder" alt="Python AI Game">
+                            <span>Python AI Game</span>
+                        </a>
+                        <a href="https://github.com/EpicHunter116/Calculator" target="_blank" rel="noopener">
+                            <img src="placeholder" alt="Calculator App">
+                            <span>Calculator App</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="projects">
@@ -31,16 +69,13 @@
             <p>Below are three GitHub projects that showcase my work.</p>
             <div class="project-grid">
                 <div class="project-card">
-                    <a href="https://github.com/EpicHunter116/Python-AI-game">Project
-                        1: Python AI Game</a>
+                    <a href="https://github.com/EpicHunter116/Python-AI-game">Project 1: Python AI Game</a>
                 </div>
                 <div class="project-card">
-                    <a href="https://github.com/EpicHunter116/PHPCourseProj">Project
-                        2: PHP Project</a>
+                    <a href="https://github.com/EpicHunter116/PHPCourseProj">Project 2: PHP Project</a>
                 </div>
                 <div class="project-card">
-                    <a href="https://github.com/EpicHunter116/Calculator">Project
-                        3: Calculator App</a>
+                    <a href="https://github.com/EpicHunter116/Calculator">Project 3: Calculator App</a>
                 </div>
             </div>
         </section>
@@ -48,7 +83,7 @@
         <section id="contact">
             <h2>Contact</h2>
             <p>If you'd like to reach out, fill in the form below and send me a message.</p>
-            <form>
+            <form id="contactForm">
                 <div>
                     <label for="senderName">Name</label>
                     <input type="text" id="senderName" name="senderName" placeholder="Your name">
@@ -65,12 +100,13 @@
                     <label for="message">Message</label>
                     <textarea id="message" name="message" rows="5" placeholder="Write your message here..."></textarea>
                 </div>
-                <button type="submit">Submit</button>
+                <button type="submit" id="submitButton">Submit</button>
             </form>
         </section>
     </main>
 
     <script>
+        // Prompt the visitor for their name and show a personalized welcome message.
         const userName = prompt('What is your name?', 'Friend');
         const welcomeElement = document.getElementById('welcomeMessage');
         if (userName && userName.trim().length > 0) {
@@ -78,6 +114,45 @@
         } else {
             welcomeElement.textContent = 'Welcome to my portfolio!';
         }
+
+        // Skills list generation using a loop.
+        const skills = ['HTML', 'CSS', 'JavaScript', 'Git', 'GitHub'];
+        const skillsList = document.getElementById('skillsList');
+        skills.forEach(skill => {
+            const listItem = document.createElement('li');
+            listItem.textContent = skill;
+            skillsList.appendChild(listItem);
+        });
+
+        // Featured content show/hide logic based on the number of project cards.
+        const projectCards = document.querySelectorAll('#projects .project-card');
+        const universityResources = document.getElementById('universityResources');
+        const personalProjects = document.getElementById('personalProjects');
+
+        if (projectCards.length < 3) {
+            universityResources.classList.remove('hidden');
+            personalProjects.classList.remove('hidden');
+        } else {
+            universityResources.classList.add('hidden');
+            personalProjects.classList.remove('hidden');
+        }
+
+        // Dark mode toggle using classList and event listener.
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('change', function () {
+            document.body.classList.toggle('dark-mode', this.checked);
+        });
+
+        // Contact form submit behavior with alert confirmation.
+        const submitButton = document.getElementById('submitButton');
+        const contactForm = document.getElementById('contactForm');
+        submitButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            const nameInput = document.getElementById('senderName').value.trim();
+            const nameText = nameInput.length > 0 ? nameInput : 'Friend';
+            alert(`Thank you, ${nameText}, your message has been sent!`);
+            contactForm.reset();
+        });
     </script>
 </body>
 
