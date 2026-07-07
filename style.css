@@ -155,3 +155,43 @@ button:hover {
     margin: 0;
     font-size: 1.15rem;
 }
+
+.highlighted-heading {
+    color: #1f4f9c;
+    letter-spacing: 0.04em;
+}
+
+.dynamic-project-note {
+    margin-top: 1rem;
+    padding: 0.85rem 1rem;
+    background: #eef5ff;
+    border-left: 4px solid #1f4f9c;
+    border-radius: 6px;
+}
+
+.page-notice {
+    display: none;
+    margin: 1rem 1.5rem 0;
+    padding: 0.8rem 1rem;
+    background: #dff3e4;
+    color: #1f5f2f;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.page-notice.visible {
+    display: block;
+}
+
+.form-status {
+    margin-top: 0.4rem;
+    font-weight: 600;
+}
+
+.form-status.loading {
+    color: #1f4f9c;
+}
+
+.form-status.success {
+    color: #2e7d32;
+}

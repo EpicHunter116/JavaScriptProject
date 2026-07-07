@@ -124,6 +124,32 @@
             skillsList.appendChild(listItem);
         });
 
+        // Update an existing heading and section styling.
+        const aboutHeading = document.querySelector('#about h2');
+        aboutHeading.textContent = 'About Me';
+        aboutHeading.classList.add('highlighted-heading');
+
+        const projectsHeading = document.querySelector('#projects h2');
+        projectsHeading.style.borderBottom = '2px solid #1f4f9c';
+        projectsHeading.style.paddingBottom = '0.35rem';
+
+        // Add a dynamic project note to the Projects section.
+        const projectsSection = document.getElementById('projects');
+        const newProjectNote = document.createElement('p');
+        newProjectNote.className = 'dynamic-project-note';
+        newProjectNote.textContent = 'I recently expanded this portfolio with interactive JavaScript features and a live contact experience.';
+        projectsSection.appendChild(newProjectNote);
+
+        // Add a delayed notification message near the top of the page.
+        const notice = document.createElement('div');
+        notice.className = 'page-notice';
+        notice.textContent = 'New portfolio update available!';
+        document.querySelector('header').insertAdjacentElement('afterend', notice);
+
+        setTimeout(() => {
+            notice.classList.add('visible');
+        }, 1200);
+
         // Featured content show/hide logic based on the number of project cards.
         const projectCards = document.querySelectorAll('#projects .project-card');
         const universityResources = document.getElementById('universityResources');
@@ -143,15 +169,29 @@
             document.body.classList.toggle('dark-mode', this.checked);
         });
 
-        // Contact form submit behavior with alert confirmation.
+        // Contact form submit behavior with timed confirmation.
         const submitButton = document.getElementById('submitButton');
         const contactForm = document.getElementById('contactForm');
         submitButton.addEventListener('click', function (event) {
             event.preventDefault();
-            const nameInput = document.getElementById('senderName').value.trim();
-            const nameText = nameInput.length > 0 ? nameInput : 'Friend';
-            alert(`Thank you, ${nameText}, your message has been sent!`);
-            contactForm.reset();
+
+            const existingStatus = document.getElementById('formStatusMessage');
+            if (existingStatus) {
+                existingStatus.remove();
+            }
+
+            const loadingMessage = document.createElement('p');
+            loadingMessage.id = 'formStatusMessage';
+            loadingMessage.className = 'form-status loading';
+            loadingMessage.textContent = 'Sending message...';
+            contactForm.appendChild(loadingMessage);
+
+            window.setTimeout(() => {
+                loadingMessage.textContent = 'Message sent successfully!';
+                loadingMessage.classList.remove('loading');
+                loadingMessage.classList.add('success');
+                contactForm.reset();
+            }, 2500);
         });
     </script>
 </body>
