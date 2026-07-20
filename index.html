@@ -25,6 +25,14 @@
         </nav>
     </header>
 
+    <div class="modal-overlay visible" id="welcomeModalOverlay" aria-hidden="false">
+        <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="welcomeModalTitle">
+            <h2 id="welcomeModalTitle">Welcome</h2>
+            <p>This page is a work in progress.</p>
+            <button type="button" id="closeModalButton">Close</button>
+        </div>
+    </div>
+
     <main>
         <section id="about">
             <h2>About</h2>
@@ -100,19 +108,33 @@
                     <label for="message">Message</label>
                     <textarea id="message" name="message" rows="5" placeholder="Write your message here..."></textarea>
                 </div>
-                <button type="submit" id="submitButton">Submit</button>
+                <div class="submit-button-wrapper">
+                    <button type="submit" id="submitButton">Submit</button>
+                    <span class="submit-tooltip">Click to send your message!</span>
+                </div>
             </form>
         </section>
     </main>
 
     <script>
-        // Prompt the visitor for their name and show a personalized welcome message.
-        const userName = prompt('What is your name?', 'Friend');
         const welcomeElement = document.getElementById('welcomeMessage');
-        if (userName && userName.trim().length > 0) {
-            welcomeElement.textContent = `Welcome, ${userName.trim()}! Glad you are here.`;
-        } else {
-            welcomeElement.textContent = 'Welcome to my portfolio!';
+        welcomeElement.textContent = 'Welcome to my portfolio!';
+
+        const modalOverlay = document.getElementById('welcomeModalOverlay');
+        const closeModalButton = document.getElementById('closeModalButton');
+
+        if (modalOverlay && closeModalButton) {
+            closeModalButton.addEventListener('click', () => {
+                modalOverlay.classList.remove('visible');
+                modalOverlay.setAttribute('aria-hidden', 'true');
+            });
+
+            modalOverlay.addEventListener('click', (event) => {
+                if (event.target === modalOverlay) {
+                    modalOverlay.classList.remove('visible');
+                    modalOverlay.setAttribute('aria-hidden', 'true');
+                }
+            });
         }
 
         // Skills list generation using a loop.
@@ -165,8 +187,15 @@
 
         // Dark mode toggle using classList and event listener.
         const darkModeToggle = document.getElementById('darkModeToggle');
+        const storedDarkMode = localStorage.getItem('darkModeEnabled') === 'true';
+
+        document.body.classList.toggle('dark-mode', storedDarkMode);
+        darkModeToggle.checked = storedDarkMode;
+
         darkModeToggle.addEventListener('change', function () {
-            document.body.classList.toggle('dark-mode', this.checked);
+            const isDarkMode = this.checked;
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            localStorage.setItem('darkModeEnabled', String(isDarkMode));
         });
 
         // Contact form submit behavior with timed confirmation.

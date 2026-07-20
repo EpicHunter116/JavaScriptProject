@@ -43,6 +43,11 @@ body.dark-mode button {
     background: #3367d6;
 }
 
+body.dark-mode .modal-dialog {
+    background: #1c1c1c;
+    color: #f4f4f4;
+}
+
 header {
     background: #1f4f9c;
     color: #fff;
@@ -149,6 +154,59 @@ button {
 
 button:hover {
     background: #163c7a;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.modal-overlay.visible {
+    display: flex;
+}
+
+.modal-dialog {
+    background: #ffffff;
+    color: #1a1a1a;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: min(100%, 360px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.submit-button-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.submit-tooltip {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%);
+    background: #1f4f9c;
+    color: #fff;
+    padding: 0.4rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.submit-button-wrapper:hover .submit-tooltip,
+.submit-button-wrapper:focus-within .submit-tooltip {
+    opacity: 1;
+    visibility: visible;
 }
 
 .welcome-message {
