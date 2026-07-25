@@ -74,18 +74,8 @@
 
         <section id="projects">
             <h2>Projects</h2>
-            <p>Below are three GitHub projects that showcase my work.</p>
-            <div class="project-grid">
-                <div class="project-card">
-                    <a href="https://github.com/EpicHunter116/Python-AI-game">Project 1: Python AI Game</a>
-                </div>
-                <div class="project-card">
-                    <a href="https://github.com/EpicHunter116/PHPCourseProj">Project 2: PHP Project</a>
-                </div>
-                <div class="project-card">
-                    <a href="https://github.com/EpicHunter116/Calculator">Project 3: Calculator App</a>
-                </div>
-            </div>
+            <p>Below are selected GitHub projects that showcase my work.</p>
+            <div class="project-grid" id="projectsContainer"></div>
         </section>
 
         <section id="contact">
@@ -171,6 +161,80 @@
         setTimeout(() => {
             notice.classList.add('visible');
         }, 1200);
+
+        // Project data stored in sessionStorage and rendered dynamically.
+        const projectStorageKey = 'portfolioProjects';
+        const defaultProjects = [
+            {
+                title: 'Python AI Game',
+                summary: 'A playful Python project that blends game logic with simple AI behavior and interactive design.',
+                imageUrl: 'https://placehold.co/220x140/1f4f9c/ffffff?text=Python+AI+Game',
+                repositoryUrl: 'https://github.com/EpicHunter116/Python-AI-game'
+            },
+            {
+                title: 'PHP Course Project',
+                summary: 'A PHP-based web application that demonstrates form handling and dynamic content creation.',
+                imageUrl: 'https://placehold.co/220x140/163c7a/ffffff?text=PHP+Project',
+                repositoryUrl: 'https://github.com/EpicHunter116/PHPCourseProj'
+            },
+            {
+                title: 'Calculator App',
+                summary: 'A compact calculator project focused on clean UI and reliable JavaScript-based calculations.',
+                imageUrl: 'https://placehold.co/220x140/3367d6/ffffff?text=Calculator',
+                repositoryUrl: 'https://github.com/EpicHunter116/Calculator'
+            }
+        ];
+
+        let projects = [];
+
+        try {
+            const storedProjects = sessionStorage.getItem(projectStorageKey);
+
+            if (storedProjects) {
+                projects = JSON.parse(storedProjects);
+            } else {
+                projects = defaultProjects;
+                sessionStorage.setItem(projectStorageKey, JSON.stringify(projects));
+            }
+        } catch (error) {
+            console.warn('Unable to load project data from session storage.', error);
+            projects = defaultProjects;
+        }
+
+        const projectsContainer = document.getElementById('projectsContainer');
+
+        if (projectsContainer) {
+            projectsContainer.innerHTML = '';
+
+            projects.forEach(project => {
+                const card = document.createElement('article');
+                card.className = 'project-card';
+
+                const image = document.createElement('img');
+                image.src = project.imageUrl;
+                image.alt = `${project.title} preview`;
+                image.loading = 'lazy';
+
+                const cardContent = document.createElement('div');
+                cardContent.className = 'project-card-content';
+
+                const title = document.createElement('h3');
+                title.textContent = project.title;
+
+                const summary = document.createElement('p');
+                summary.textContent = project.summary;
+
+                const repositoryLink = document.createElement('a');
+                repositoryLink.href = project.repositoryUrl;
+                repositoryLink.target = '_blank';
+                repositoryLink.rel = 'noopener';
+                repositoryLink.textContent = 'View Repository';
+
+                cardContent.append(title, summary, repositoryLink);
+                card.append(image, cardContent);
+                projectsContainer.appendChild(card);
+            });
+        }
 
         // Featured content show/hide logic based on the number of project cards.
         const projectCards = document.querySelectorAll('#projects .project-card');
